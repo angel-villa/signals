@@ -167,7 +167,7 @@ class Window(Frame):
         
         # Figure 1 buttons
         self.button_21 = Button(self.f_21, text="Step", command=partial(self.update_21, df.step, self.fig_21, self.canvas_21, self.n))
-        self.button_21.pack(side=RIGHT)
+        self.button_21.pack(side=RIGHT, padx=(0,10))
         self.button_22 = Button(self.f_21, text="Cosine", command=partial(self.update_21, df.cosine, self.fig_21, self.canvas_21, self.n))
         self.button_22.pack(side=RIGHT)
         self.button_23 = Button(self.f_21, text="Sine", command=partial(self.update_21, df.sine, self.fig_21, self.canvas_21, self.n))
