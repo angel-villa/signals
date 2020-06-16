@@ -7,6 +7,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 
+# allows buttons to take multiple inputs
 from functools import partial
 
 import numpy as np
@@ -21,6 +22,7 @@ class Window(Frame):
         self.nb = Notebook(self.master)
         self.nb.pack(side=TOP, fill=BOTH, expand=1)
         
+        # self.vals_ij corresponds to the values handled by the jth plot on the ith tab
         self.n = np.linspace(-2*np.pi,2*np.pi,256)
         self.vals_11 = self.n*0
         self.vals_12 = self.n*0
@@ -49,6 +51,7 @@ class Window(Frame):
         self.nb.select(self.f_1)
         self.nb.enable_traversal()
         
+        # display the two tabs
         self.convolution_tab()
         self.psd_tab()
 
@@ -204,10 +207,12 @@ class Window(Frame):
         self.canvas_21.mpl_connect("key_press_event", self.on_key_press)
         self.canvas_22.mpl_connect("key_press_event", self.on_key_press)
         
+    # handle key presses
     def on_key_press(self, event):
         print("you pressed {}".format(event.key))
         key_press_handler(event, self.canvas, self.toolbar)
         
+    # update plots, functions called on the respective button click
     def update_11(self, func, fig, canvas, n):
         self.vals_11 = func(fig, canvas, n)
         
@@ -225,6 +230,7 @@ class Window(Frame):
 
 def main():
     root = Tk()
+    # state('zoomed') forces app to open maximized
     root.state('zoomed')
     app = Window(root)
     root.wm_title("Signals")
